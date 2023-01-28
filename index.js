@@ -87,6 +87,10 @@ function updateArray(draggable, afterElement) {
   copyArray.splice(draggableIdx, 1);
   copyArray.splice(elementIdx - 1, 0, draggableObj);
 
+  if (JSON.stringify(data) === JSON.stringify(copyArray)) {
+    return;
+  }
+
   data = JSON.parse(JSON.stringify(copyArray));
 }
 

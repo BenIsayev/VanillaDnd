@@ -22,7 +22,7 @@ body {
     border-radius: 8px;
     left: 0;
     top: 0;
-    transition: transform 1s;
+    transition: transform .4s;
     cursor: move;
 }
 
