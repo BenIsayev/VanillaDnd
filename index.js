@@ -1,15 +1,19 @@
-let data = [];
+let data = JSON.parse(localStorage.getItem('data'));
 const container = document.querySelector('.container');
 const containerRect = container.getBoundingClientRect();
-const divsInRow = 5;
-const divMargin = 12;
+const divsInRow = 3;
+const divMargin = 8;
 const divWidth = containerRect.width / divsInRow - divMargin;
 
-for (let i = 0; i < 15; i++) {
-  data.push({
-    content: getLoremIpsum(rndInt(30, 100)),
-    id: rndInt(30, 100),
-  });
+if (!data || !data.length) {
+  data = [];
+  for (let i = 0; i < 15; i++) {
+    data.push({
+      content: getLoremIpsum(rndInt(30, 100)),
+      id: rndInt(30, 100),
+    });
+    localStorage.setItem('data', JSON.stringify(data));
+  }
 }
 
 init();
@@ -92,6 +96,7 @@ function updateArray(draggable, afterElement) {
   }
 
   data = JSON.parse(JSON.stringify(copyArray));
+  localStorage.setItem('data', JSON.stringify(data));
 }
 
 function reCalculatePositions() {
@@ -102,8 +107,6 @@ function reCalculatePositions() {
 }
 
 function getDivPosition(idx) {
-  const a = (idx + 1) / divsInRow;
-  //   const top = getRowPosition(idx
   const position = getColumnPosition(idx);
   const top = getRowPosition(idx, position);
   return `translate(${position * divWidth + position * divMargin}px, ${top}px)`;
